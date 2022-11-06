@@ -1,16 +1,23 @@
 package com.project.entity;
 
+import com.project.entity.enums.Topic;
+
 import java.math.BigDecimal;
 
-public class Publications {
+public class Publication {
     private String id;
     private Topic topic;
     private BigDecimal price;
+    private String content;
 
-    public Publications(String id, Topic topic, BigDecimal price) {
+    public Publication() {
+    }
+
+    public Publication(String id, Topic topic, BigDecimal price, String content) {
         this.id = id;
         this.topic = topic;
         this.price = price;
+        this.content = content;
     }
 
     public String getId() {
@@ -35,5 +42,13 @@ public class Publications {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

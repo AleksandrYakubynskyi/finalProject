@@ -1,21 +1,28 @@
 package com.project.entity;
 
+import com.project.entity.enums.Gender;
+import com.project.entity.enums.Role;
+
 public class User {
     private String id;
     private String firstname;
     private String lastname;
     private String email;
     private String password;
-    private String gender;
+    private Gender gender;
     private Role role;
 
-    public User(String id, String firstname, String lastname, String email, String password, String gender) {
+    public User() {
+    }
+
+    public User(String id, String firstname, String lastname, String email, String password, Gender gender, Role role) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.gender = gender;
+        this.role = role;
     }
 
     public String getId() {
@@ -58,11 +65,19 @@ public class User {
         this.password = password;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

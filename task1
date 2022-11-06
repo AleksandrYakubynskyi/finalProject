@@ -1,0 +1,2 @@
+1. Добавить методы в userDAO: addUser, getAllUsers, removeUser, updateUser
+2. Добавить методы в publicationDAO: addPublication, getAllPublications, getPublicationByTopic, setPublicationForUser, removePublication, updatePublication

@@ -1,4 +1,4 @@
-package com.project.entity;
+package com.project.entity.enums;
 
 public enum Role {
     USER,
