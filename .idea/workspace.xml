@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13bb88e8-03ad-47cf-819a-3d53d330966c" name="Changes" comment="add Attributes, add DaoPublication, add MySQLQueries,">
+    <list default="true" id="13bb88e8-03ad-47cf-819a-3d53d330966c" name="Changes" comment="add Attributes, add DaoPublication, add MySQLQueries,add">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/constant/Attributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/constant/Attributes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/constant/MySQLQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/constant/MySQLQueries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/dao/PublicationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/dao/PublicationDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/dao/UserDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/dao/impl/DefaultPublicationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/dao/impl/DefaultPublicationDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/dao/impl/DefaultUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/dao/impl/DefaultUserDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/entity/Publication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/entity/Publication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -275,7 +270,7 @@
       <workItem from="1667769154747" duration="1000" />
       <workItem from="1667769608317" duration="153000" />
       <workItem from="1667811758262" duration="12754000" />
-      <workItem from="1667839485756" duration="1873000" />
+      <workItem from="1667839485756" duration="2974000" />
     </task>
     <task id="LOCAL-00001" summary="add entity">
       <created>1667728763802</created>
@@ -298,7 +293,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667814697516</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add Attributes, add DaoPublication, add MySQLQueries,add">
+      <created>1667841400129</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667841400129</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,6 +324,7 @@
     <MESSAGE value="add entity" />
     <MESSAGE value="add e" />
     <MESSAGE value="add Attributes, add DaoPublication, add MySQLQueries," />
-    <option name="LAST_COMMIT_MESSAGE" value="add Attributes, add DaoPublication, add MySQLQueries," />
+    <MESSAGE value="add Attributes, add DaoPublication, add MySQLQueries,add" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Attributes, add DaoPublication, add MySQLQueries,add" />
   </component>
 </project>

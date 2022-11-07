@@ -29,7 +29,7 @@ public class DefaultPublicationDao implements PublicationDao {
             int parameterIndex = NumberUtils.INTEGER_ZERO;
             preparedStatement.setString(++parameterIndex, publication.getId());
             preparedStatement.setString(++parameterIndex, String.valueOf(publication.getTopic()));
-            preparedStatement.setString(++parameterIndex, publication.getPrice());
+            preparedStatement.setBigDecimal(++parameterIndex, publication.getPrice());
             preparedStatement.setString(++parameterIndex, publication.getContent());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class DefaultPublicationDao implements PublicationDao {
 
         publication.setId(resultSet.getString(Attributes.ID));
         publication.setTopic(Topic.valueOf(resultSet.getString(Attributes.TOPIC)));
-        publication.setPrice(resultSet.getString(Attributes.PRICE));
+        publication.setPrice(resultSet.getBigDecimal(Attributes.PRICE));
         publication.setContent(resultSet.getString(Attributes.CONTENT));
 
         return publication;
