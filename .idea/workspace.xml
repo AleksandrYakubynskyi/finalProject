@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13bb88e8-03ad-47cf-819a-3d53d330966c" name="Changes" comment="add entity" />
+    <list default="true" id="13bb88e8-03ad-47cf-819a-3d53d330966c" name="Changes" comment="add e">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/dao/PublicationDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/dao/impl/DefaultPublicationDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/constant/Attributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/constant/Attributes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/constant/MySQLQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/constant/MySQLQueries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/dao/impl/DefaultUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/dao/impl/DefaultUserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/util/DbHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/util/DbHelper.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,13 +23,52 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -39,7 +88,11 @@
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -219,6 +272,10 @@
       <workItem from="1667673474732" duration="598000" />
       <workItem from="1667725995181" duration="1940000" />
       <workItem from="1667745176226" duration="757000" />
+      <workItem from="1667767914278" duration="49000" />
+      <workItem from="1667769154747" duration="1000" />
+      <workItem from="1667769608317" duration="153000" />
+      <workItem from="1667811758262" duration="2665000" />
     </task>
     <task id="LOCAL-00001" summary="add entity">
       <created>1667728763802</created>
@@ -227,7 +284,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667728763802</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add e">
+      <created>1667748200499</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1667748200499</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,7 +309,11 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
     <MESSAGE value="add entity" />
-    <option name="LAST_COMMIT_MESSAGE" value="add entity" />
+    <MESSAGE value="add e" />
+    <option name="LAST_COMMIT_MESSAGE" value="add e" />
   </component>
 </project>

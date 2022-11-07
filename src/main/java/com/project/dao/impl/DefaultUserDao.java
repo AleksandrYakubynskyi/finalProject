@@ -38,12 +38,33 @@ public class DefaultUserDao implements UserDao {
         return null;
     }
 
+    @Override
+    public User addUser(String id) {
+        return null;
+    }
+
+    @Override
+    public User getAllUsers(String id) {
+        return null;
+    }
+
+    @Override
+    public User removeUser(String id) {
+        return null;
+    }
+
+    @Override
+    public User updateUser(String id) {
+        return null;
+    }
+
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
         User user = new User();
 
         user.setId(resultSet.getString(Attributes.ID));
         user.setFirstname(resultSet.getString(Attributes.FIRSTNAME));
         user.setLastname(resultSet.getString(Attributes.LASTNAME));
+        user.setEmail(resultSet.getString(Attributes.EMAIL));
         user.setPassword(resultSet.getString(Attributes.PASSWORD));
         user.setGender(Gender.valueOf(resultSet.getString(Attributes.GENDER)));
         user.setRole(Role.valueOf(resultSet.getString(Attributes.ROLE)));
