@@ -39,8 +39,23 @@ public class DefaultUserDao implements UserDao {
     }
 
     @Override
-    public User addUser(String id) {
-        return null;
+    public void addUser(User user) {
+
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.ADD_USER)) {
+
+            int parameterIndex = NumberUtils.INTEGER_ZERO;
+            preparedStatement.setString(++parameterIndex, user.getId());
+            preparedStatement.setString(++parameterIndex, user.getFirstname());
+            preparedStatement.setString(++parameterIndex, user.getLastname());
+            preparedStatement.setString(++parameterIndex, user.getEmail());
+            preparedStatement.setString(++parameterIndex, user.getPassword());
+            preparedStatement.setString(++parameterIndex, String.valueOf(user.getGender()));
+            preparedStatement.setString(++parameterIndex, String.valueOf(user.getRole()));
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

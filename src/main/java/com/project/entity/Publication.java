@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class Publication {
     private String id;
     private Topic topic;
-    private BigDecimal price;
+    private String price;
     private String content;
 
     public Publication() {
@@ -16,7 +16,7 @@ public class Publication {
     public Publication(String id, Topic topic, BigDecimal price, String content) {
         this.id = id;
         this.topic = topic;
-        this.price = price;
+        this.price = String.valueOf(price);
         this.content = content;
     }
 
@@ -36,11 +36,11 @@ public class Publication {
         this.topic = topic;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

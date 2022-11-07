@@ -4,14 +4,10 @@ import com.project.constant.Attributes;
 import com.project.constant.MySQLQueries;
 import com.project.dao.PublicationDao;
 import com.project.entity.Publication;
-import com.project.entity.User;
-import com.project.entity.enums.Gender;
-import com.project.entity.enums.Role;
 import com.project.entity.enums.Topic;
 import com.project.util.DbHelper;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,8 +22,19 @@ public class DefaultPublicationDao implements PublicationDao {
     }
 
     @Override
-    public Publication addPublication(String id) {
-        return null;
+    public void addPublication(Publication publication) {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.ADD_PUBLICATION)) {
+
+            int parameterIndex = NumberUtils.INTEGER_ZERO;
+            preparedStatement.setString(++parameterIndex, publication.getId());
+            preparedStatement.setString(++parameterIndex, String.valueOf(publication.getTopic()));
+            preparedStatement.setString(++parameterIndex, publication.getPrice());
+            preparedStatement.setString(++parameterIndex, publication.getContent());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -43,7 +50,7 @@ public class DefaultPublicationDao implements PublicationDao {
 
             preparedStatement.setString(NumberUtils.INTEGER_ONE, String.valueOf(topic));
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 return getPublicationFromResultSet(resultSet);
             }
         } catch (SQLException e) {
@@ -66,12 +73,13 @@ public class DefaultPublicationDao implements PublicationDao {
     public Publication updatePublication(String id) {
         return null;
     }
+
     private Publication getPublicationFromResultSet(ResultSet resultSet) throws SQLException {
         Publication publication = new Publication();
 
         publication.setId(resultSet.getString(Attributes.ID));
-        publication.setTopic(Topic.valueOf(resultSet.getString(String.valueOf(Attributes.TOPIC))));
-        publication.setPrice(BigDecimal.valueOf(Long.parseLong(resultSet.getString(String.valueOf(Attributes.PRICE)))));
+        publication.setTopic(Topic.valueOf(resultSet.getString(Attributes.TOPIC)));
+        publication.setPrice(resultSet.getString(Attributes.PRICE));
         publication.setContent(resultSet.getString(Attributes.CONTENT));
 
         return publication;

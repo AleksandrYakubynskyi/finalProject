@@ -13,8 +13,8 @@ public class Attributes {
     public static final String PASSWORD = "password";
     public static final String GENDER = "gender";
     public static final String ROLE = "role";
-    public static final Topic TOPIC = Topic.valueOf("topic");
-    public static final BigDecimal PRICE = BigDecimal.valueOf(Long.parseLong("price"));
+    public static final String TOPIC = "topic";
+    public static final String PRICE = "price";
     public static final String CONTENT = "content";
 
 }
