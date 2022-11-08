@@ -4,6 +4,7 @@ import com.project.constant.Attributes;
 import com.project.constant.MySQLQueries;
 import com.project.dao.PublicationDao;
 import com.project.entity.Publication;
+import com.project.entity.User;
 import com.project.entity.enums.Topic;
 import com.project.util.DbHelper;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -12,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DefaultPublicationDao implements PublicationDao {
 
@@ -38,8 +41,18 @@ public class DefaultPublicationDao implements PublicationDao {
     }
 
     @Override
-    public Publication getAllPublications(String id) {
-        return null;
+    public List<Publication> getAllPublications() {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_ALL_PUBLICATIONS)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Publication> publications = new ArrayList<>();
+            while (resultSet.next()) {
+                publications.add(getPublicationFromResultSet(resultSet));
+            }
+            return publications;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -65,13 +78,30 @@ public class DefaultPublicationDao implements PublicationDao {
     }
 
     @Override
-    public Publication removePublication(String id) {
-        return null;
+    public void removePublication(String id) {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.DELETE_PUBLICATION)) {
+            preparedStatement.setString(NumberUtils.INTEGER_ONE, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public Publication updatePublication(String id) {
-        return null;
+    public void updatePublication(Publication publication) {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.UPDATE_PUBLICATION)) {
+
+            int parameterIndex = NumberUtils.INTEGER_ZERO;
+            preparedStatement.setString(++parameterIndex, publication.getId());
+            preparedStatement.setString(++parameterIndex, String.valueOf(publication.getTopic()));
+            preparedStatement.setBigDecimal(++parameterIndex, publication.getPrice());
+            preparedStatement.setString(++parameterIndex, publication.getContent());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Publication getPublicationFromResultSet(ResultSet resultSet) throws SQLException {

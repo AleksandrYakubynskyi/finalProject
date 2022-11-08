@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DefaultUserDao implements UserDao {
     private final DbHelper dbHelper;
@@ -59,18 +61,48 @@ public class DefaultUserDao implements UserDao {
     }
 
     @Override
-    public User getAllUsers(String id) {
-        return null;
+    public List<User> getAllUsers() {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_ALL_USERS)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<User> users = new ArrayList<>();
+            while (resultSet.next()) {
+                users.add(getUserFromResultSet(resultSet));
+            }
+            return users;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public User removeUser(String id) {
-        return null;
+    public void removeUser(String id) {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.DELETE_USER)) {
+            preparedStatement.setString(NumberUtils.INTEGER_ONE, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public User updateUser(String id) {
-        return null;
+    public void updateUser(User user) {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.UPDATE_USER)) {
+
+            int parameterIndex = NumberUtils.INTEGER_ZERO;
+            preparedStatement.setString(++parameterIndex, user.getId());
+            preparedStatement.setString(++parameterIndex, user.getFirstname());
+            preparedStatement.setString(++parameterIndex, user.getLastname());
+            preparedStatement.setString(++parameterIndex, user.getEmail());
+            preparedStatement.setString(++parameterIndex, user.getPassword());
+            preparedStatement.setString(++parameterIndex, String.valueOf(user.getGender()));
+            preparedStatement.setString(++parameterIndex, String.valueOf(user.getRole()));
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
