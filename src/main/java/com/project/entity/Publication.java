@@ -51,4 +51,14 @@ public class Publication {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "Publication{" +
+                "id='" + id + '\'' +
+                ", topic=" + topic +
+                ", price=" + price +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

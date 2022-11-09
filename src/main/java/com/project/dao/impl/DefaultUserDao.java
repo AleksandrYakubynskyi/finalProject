@@ -62,17 +62,19 @@ public class DefaultUserDao implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
         try (Connection connection = dbHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_ALL_USERS)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<User> users = new ArrayList<>();
+
             while (resultSet.next()) {
                 users.add(getUserFromResultSet(resultSet));
             }
-            return users;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return users;
     }
 
     @Override

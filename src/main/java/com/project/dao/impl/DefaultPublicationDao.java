@@ -42,17 +42,19 @@ public class DefaultPublicationDao implements PublicationDao {
 
     @Override
     public List<Publication> getAllPublications() {
+        List<Publication> publications = new ArrayList<>();
         try (Connection connection = dbHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_ALL_PUBLICATIONS)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<Publication> publications = new ArrayList<>();
+
             while (resultSet.next()) {
                 publications.add(getPublicationFromResultSet(resultSet));
             }
-            return publications;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return publications;
     }
 
     @Override
@@ -73,8 +75,15 @@ public class DefaultPublicationDao implements PublicationDao {
     }
 
     @Override
-    public Publication setPublicationForUser(String id) {
-        return null;
+    public void setPublicationForUser(User user, Publication publication) {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.SET_PUBLICATION_FOR_USER)) {
+            preparedStatement.setString(NumberUtils.INTEGER_ONE, user.getId());
+            preparedStatement.setString(NumberUtils.INTEGER_TWO, publication.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
