@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DefaultUserDao implements UserDao {
     private final DbHelper dbHelper;
@@ -24,7 +25,7 @@ public class DefaultUserDao implements UserDao {
     }
 
     @Override
-    public User getUserById(String id) {
+    public Optional<User> getUserById(String id) {
         try (Connection connection = dbHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_USER_BY_ID)) {
 
@@ -32,12 +33,12 @@ public class DefaultUserDao implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return getUserFromResultSet(resultSet);
+                return Optional.of(getUserFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
@@ -105,6 +106,25 @@ public class DefaultUserDao implements UserDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Optional<User> getUserByEmail(String email) {
+        User user = null;
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_USER_BY_EMAIL)) {
+
+            preparedStatement.setString(NumberUtils.INTEGER_ONE, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                user = getUserFromResultSet(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return Optional.ofNullable(user);
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {

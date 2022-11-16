@@ -5,13 +5,14 @@ import com.project.entity.User;
 import com.project.entity.enums.Topic;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PublicationDao {
     public void addPublication(Publication publication);
 
     public List<Publication> getAllPublications();
 
-    public Publication getPublicationByTopic(Topic topic);
+    public Optional<Publication> getPublicationByTopic(Topic topic);
 
     public void setPublicationForUser(User user, Publication publication);
 
