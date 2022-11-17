@@ -1,19 +1,23 @@
 package com.project.dao;
 
 import com.project.entity.Publication;
+import com.project.entity.User;
 import com.project.entity.enums.Topic;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface PublicationDao {
     public void addPublication(Publication publication);
 
-    public Publication getAllPublications(String id);
+    public List<Publication> getAllPublications();
 
-    public Publication getPublicationByTopic(Topic topic);
+    public Optional<Publication> getPublicationByTopic(Topic topic);
 
-    public Publication setPublicationForUser(String id);
+    public void setPublicationForUser(User user, Publication publication);
 
-    public Publication removePublication(String id);
+    public void removePublication(String id);
 
-    public Publication updatePublication(String id);
+    public void updatePublication(Publication publication);
 
 }

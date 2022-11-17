@@ -13,6 +13,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class DefaultUserDao implements UserDao {
     private final DbHelper dbHelper;
@@ -22,7 +25,7 @@ public class DefaultUserDao implements UserDao {
     }
 
     @Override
-    public User getUserById(String id) {
+    public Optional<User> getUserById(String id) {
         try (Connection connection = dbHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_USER_BY_ID)) {
 
@@ -30,12 +33,12 @@ public class DefaultUserDao implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return getUserFromResultSet(resultSet);
+                return Optional.of(getUserFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
@@ -59,18 +62,68 @@ public class DefaultUserDao implements UserDao {
     }
 
     @Override
-    public User getAllUsers(String id) {
-        return null;
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_ALL_USERS)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                users.add(getUserFromResultSet(resultSet));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
     }
 
     @Override
-    public User removeUser(String id) {
-        return null;
+    public void removeUser(String id) {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.DELETE_USER)) {
+            preparedStatement.setString(NumberUtils.INTEGER_ONE, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public User updateUser(String id) {
-        return null;
+    public void updateUser(User user) {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.UPDATE_USER)) {
+
+            int parameterIndex = NumberUtils.INTEGER_ZERO;
+            preparedStatement.setString(++parameterIndex, user.getId());
+            preparedStatement.setString(++parameterIndex, user.getFirstname());
+            preparedStatement.setString(++parameterIndex, user.getLastname());
+            preparedStatement.setString(++parameterIndex, user.getEmail());
+            preparedStatement.setString(++parameterIndex, user.getPassword());
+            preparedStatement.setString(++parameterIndex, String.valueOf(user.getGender()));
+            preparedStatement.setString(++parameterIndex, String.valueOf(user.getRole()));
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Optional<User> getUserByEmail(String email) {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_USER_BY_EMAIL)) {
+
+            preparedStatement.setString(NumberUtils.INTEGER_ONE, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return Optional.of(getUserFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return Optional.empty();
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {

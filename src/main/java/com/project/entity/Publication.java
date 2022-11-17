@@ -20,6 +20,12 @@ public class Publication {
         this.content = content;
     }
 
+    public Publication(Topic topic, BigDecimal price, String content) {
+        this.topic = topic;
+        this.price = price;
+        this.content = content;
+    }
+
     public String getId() {
         return id;
     }
@@ -50,5 +56,15 @@ public class Publication {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Publication{" +
+                "id='" + id + '\'' +
+                ", topic=" + topic +
+                ", price=" + price +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

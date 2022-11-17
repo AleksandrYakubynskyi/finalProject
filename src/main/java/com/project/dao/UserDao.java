@@ -2,14 +2,19 @@ package com.project.dao;
 
 import com.project.entity.User;
 
+import java.util.List;
+import java.util.Optional;
+
 
 public interface UserDao {
-    public User getUserById(String id);
+    public Optional<User> getUserById(String id);
 
     public void addUser(User user);
-    public User getAllUsers(String id);
 
-    public User removeUser(String id);
+    public List<User> getAllUsers();
 
-    public User updateUser(String id);
+    public void removeUser(String id);
+
+    public void updateUser(User user);
+    public Optional<User> getUserByEmail(String email);
 }

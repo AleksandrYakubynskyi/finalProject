@@ -1,11 +1,6 @@
 package com.project.constant;
 
-import com.project.entity.enums.Topic;
-
-import java.math.BigDecimal;
-
 public class Attributes {
-    public static final String USER_TABLE = "user";
     public static final String ID = "id";
     public static final String FIRSTNAME = "firstname";
     public static final String LASTNAME = "lastname";
@@ -16,5 +11,6 @@ public class Attributes {
     public static final String TOPIC = "topic";
     public static final String PRICE = "price";
     public static final String CONTENT = "content";
+    public static final String USER = "user";
 
 }
