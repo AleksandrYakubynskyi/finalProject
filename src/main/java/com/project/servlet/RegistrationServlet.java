@@ -15,14 +15,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.UUID;
 
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
-    private UserService userService;
+    private final UserService userService;
     private final DbHelper dbHelper = new DbHelper();
     private final DefaultUserDao defaultUserDao = new DefaultUserDao(dbHelper);
+
+    public RegistrationServlet(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public void init() throws ServletException {
@@ -37,7 +40,6 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String id = req.getParameter(Attributes.ID);
         String firstname = req.getParameter(Attributes.FIRSTNAME);
         String lastname = req.getParameter(Attributes.LASTNAME);
         String email = req.getParameter(Attributes.EMAIL);
@@ -51,8 +53,8 @@ public class RegistrationServlet extends HttpServlet {
             resp.sendRedirect("/registration");
         }
         validateParameters(resp, firstname, lastname, email, password, gender, role);
-        defaultUserDao.addUser(
-                new User(id, firstname, lastname, email, password, Gender.valueOf(gender), Role.valueOf(role)));
+        userService.addUser(
+                new User(firstname, lastname, email, password, Gender.valueOf(gender), Role.valueOf(role)));
 
     }
 
