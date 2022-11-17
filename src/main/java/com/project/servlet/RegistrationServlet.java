@@ -37,7 +37,7 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String id = String.valueOf(UUID.randomUUID());
+        String id = req.getParameter(Attributes.ID);
         String firstname = req.getParameter(Attributes.FIRSTNAME);
         String lastname = req.getParameter(Attributes.LASTNAME);
         String email = req.getParameter(Attributes.EMAIL);

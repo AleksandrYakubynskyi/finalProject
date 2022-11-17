@@ -110,7 +110,6 @@ public class DefaultUserDao implements UserDao {
 
     @Override
     public Optional<User> getUserByEmail(String email) {
-        User user = null;
         try (Connection connection = dbHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_USER_BY_EMAIL)) {
 
@@ -118,13 +117,13 @@ public class DefaultUserDao implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                user = getUserFromResultSet(resultSet);
+                return Optional.of(getUserFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return Optional.ofNullable(user);
+        return Optional.empty();
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {

@@ -60,19 +60,18 @@ public class DefaultPublicationDao implements PublicationDao {
 
     @Override
     public Optional<Publication> getPublicationByTopic(Topic topic) {
-            Publication publication = null;
         try (Connection connection = dbHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_PUBLICATION_BY_TOPIC)) {
 
             preparedStatement.setString(NumberUtils.INTEGER_ONE, String.valueOf(topic));
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                publication = getPublicationFromResultSet(resultSet);
+                return Optional.of(getPublicationFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(publication);
+        return Optional.empty();
     }
 
     @Override

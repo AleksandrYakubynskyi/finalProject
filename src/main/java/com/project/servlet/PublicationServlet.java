@@ -41,27 +41,24 @@ public class PublicationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String id = String.valueOf(UUID.randomUUID());
+        String id = req.getParameter(Attributes.ID);
         String topic = req.getParameter(Attributes.TOPIC);
         String price = req.getParameter(Attributes.PRICE);
         String content = req.getParameter(Attributes.CONTENT);
 
-        if (!validateParameters(resp, topic, price, content)){
-            String message = "Fill in all the fields";
-            req.setAttribute("message",message);
-            resp.sendRedirect("/publication");
-        }
+        validateParameters(resp, req, topic, price, content);
 
         defaultPublicationDao.addPublication
                 (new Publication(id, Topic.valueOf(topic), BigDecimal.valueOf(Long.parseLong(price)), content));
     }
 
-    private boolean validateParameters(HttpServletResponse resp, String... strings) throws IOException {
+    private void validateParameters(HttpServletResponse resp, HttpServletRequest req, String... strings) throws IOException {
         for (String string : strings) {
             if (string.isEmpty()) {
+                String message = "Fill in all the fields";
+                req.setAttribute("message", message);
                 resp.sendRedirect("/publication");
             }
         }
-        return false;
     }
 }

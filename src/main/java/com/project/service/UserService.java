@@ -6,6 +6,7 @@ import com.project.util.DbHelper;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class UserService {
     private final DbHelper dbHelper;
@@ -19,14 +20,14 @@ public class UserService {
     public Optional<User> getUserById(String id) {
         return userDao.getUserById(id);
     }
-    public Optional<User> getUserByEmail(String email){
 
+    public Optional<User> getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
     }
 
     public void addUser(User user) {
+        user.setId(UUID.randomUUID().toString());
         userDao.addUser(user);
-
     }
 
     public List<User> getAllUsers() {

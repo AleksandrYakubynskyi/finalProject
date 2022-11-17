@@ -8,9 +8,9 @@ import com.project.util.DbHelper;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class PublicationService {
-
     private final PublicationDao publicationDao;
     private final DbHelper dbHelper;
 
@@ -21,6 +21,7 @@ public class PublicationService {
     }
 
     public void addPublication(Publication publication) {
+        publication.setId(UUID.randomUUID().toString());
         publicationDao.addPublication(publication);
     }
 
@@ -42,5 +43,9 @@ public class PublicationService {
 
     public void updatePublication(Publication publication) {
         publicationDao.updatePublication(publication);
+    }
+
+    public DbHelper getDbHelper() {
+        return dbHelper;
     }
 }
