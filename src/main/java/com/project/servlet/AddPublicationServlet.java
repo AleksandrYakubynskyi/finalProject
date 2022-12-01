@@ -15,27 +15,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.UUID;
 
-@WebServlet("/publication")
+@WebServlet("/addPublication")
 public class AddPublicationServlet extends HttpServlet {
-    private final PublicationService publicationService;
+    private PublicationService publicationService;
     private final DbHelper dbHelper = new DbHelper();
     private final DefaultPublicationDao defaultPublicationDao = new DefaultPublicationDao(dbHelper);
 
-    public AddPublicationServlet(PublicationService publicationService) {
-        this.publicationService = publicationService;
-    }
-
-
     @Override
     public void init(ServletConfig config) throws ServletException {
-        new PublicationService(defaultPublicationDao, dbHelper);
+        publicationService = new PublicationService(defaultPublicationDao, dbHelper);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        getServletContext().getRequestDispatcher("/addPublication.jsp").forward(req, resp);
     }
 
     @Override
@@ -45,19 +39,19 @@ public class AddPublicationServlet extends HttpServlet {
         String price = req.getParameter(Attributes.PRICE);
         String content = req.getParameter(Attributes.CONTENT);
 
-        validateParameters(resp, req, topic, price, content);
+        validateParameters(resp,req, topic, price, content);
 
         publicationService.addPublication(new Publication
-                (Topic.valueOf(topic), BigDecimal.valueOf(Long.parseLong(price)), content));
-
+                (Topic.valueOf(topic),BigDecimal.valueOf(Long.parseLong(price)),content));
+        resp.sendRedirect("/addPublication.jsp");
     }
 
-    private void validateParameters(HttpServletResponse resp, HttpServletRequest req, String... strings) throws IOException {
+    private void validateParameters(HttpServletResponse resp, HttpServletRequest req, String... strings) throws IOException, ServletException {
         for (String string : strings) {
             if (string.isEmpty()) {
-                String message = "Fill in all the fields";
-                req.setAttribute("message", message);
-                resp.sendRedirect("/publication");
+                String message = "Fill in all the fields!";
+                req.setAttribute("errorMessage", message);
+                resp.sendRedirect("/addPublication");
             }
         }
     }

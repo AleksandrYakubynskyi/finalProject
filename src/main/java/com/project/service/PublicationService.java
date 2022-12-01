@@ -28,6 +28,9 @@ public class PublicationService {
     public List<Publication> getAllPublications() {
         return publicationDao.getAllPublications();
     }
+    public Optional<Publication> getPublicationById(String id){
+        return publicationDao.getPublicationById(id);
+    }
 
     public Optional<Publication> getPublicationByTopic(Topic topic) {
         return publicationDao.getPublicationByTopic(topic);

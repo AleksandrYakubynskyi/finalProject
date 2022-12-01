@@ -2,6 +2,7 @@ package com.project.constant;
 
 public class MySQLQueries {
     public static final String GET_USER_BY_ID = "SELECT * FROM user WHERE id = ?";
+    public static final String GET_PUBLICATION_BY_ID = "SELECT * FROM publication WHERE id = ?";
     public static final String GET_USER_BY_EMAIL = "SELECT * FROM user WHERE email = ?";
     public static final String GET_PUBLICATION_BY_TOPIC = "SELECT * FROM publication WHERE topic = ?";
     public static final String ADD_USER = "INSERT INTO user VALUES (?,?,?,?,?,?,?)";

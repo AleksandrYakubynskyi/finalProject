@@ -42,6 +42,23 @@ public class DefaultPublicationDao implements PublicationDao {
     }
 
     @Override
+    public Optional<Publication> getPublicationById(String id) {
+        try (Connection connection = dbHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(MySQLQueries.GET_PUBLICATION_BY_ID)) {
+
+            preparedStatement.setString(NumberUtils.INTEGER_ONE, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return Optional.of(getPublicationFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public List<Publication> getAllPublications() {
         List<Publication> publications = new ArrayList<>();
         try (Connection connection = dbHelper.getConnection();

@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface PublicationDao {
     public void addPublication(Publication publication);
 
+    public Optional<Publication> getPublicationById(String id);
+
     public List<Publication> getAllPublications();
 
     public Optional<Publication> getPublicationByTopic(Topic topic);

@@ -19,24 +19,20 @@ import java.util.Optional;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    private final UserService userService;
+    private UserService userService;
     private final DbHelper dbHelper = new DbHelper();
     private final DefaultUserDao defaultUserDao = new DefaultUserDao(dbHelper);
 
-    public LoginServlet(UserService userService) {
-        this.userService = userService;
-    }
-
     @Override
     public void init(ServletConfig config) throws ServletException {
-        new UserService(dbHelper, defaultUserDao);
+        userService = new UserService(dbHelper, defaultUserDao);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
+        getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
 
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,18 +42,19 @@ public class LoginServlet extends HttpServlet {
         Optional<User> user = userService.getUserByEmail(email);
 
         if (!user.isPresent()) {
-            String message = "User with this email address does not exist";
-            req.setAttribute("message", message);
-            resp.sendRedirect("/login");
+            String message = "User with this email address does not exist!";
+            req.setAttribute("errorMessage", message);
+            req.getRequestDispatcher("/login.jsp").forward(req,resp);
         }
 
         if (!Objects.equals(password, user.get().getPassword())) {
-            String message = "Invalid password";
-            req.setAttribute("message", message);
-            resp.sendRedirect("/login");
+            String message = "Invalid password!";
+            req.setAttribute("errorMessage", message);
+            req.getRequestDispatcher("/login.jsp").forward(req,resp);
         }
         HttpSession session = req.getSession();
         session.setAttribute(Attributes.USER, user);
+        resp.sendRedirect("/");
     }
 }
 

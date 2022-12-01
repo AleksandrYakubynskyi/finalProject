@@ -13,14 +13,14 @@ public class Publication {
     public Publication() {
     }
 
-    public Publication(String id, Topic topic, BigDecimal price, String content) {
-        this.id = id;
+    public Publication(Topic topic, BigDecimal price, String content) {
         this.topic = topic;
         this.price = price;
         this.content = content;
     }
 
-    public Publication(Topic topic, BigDecimal price, String content) {
+    public Publication(String id, Topic topic, BigDecimal price, String content) {
+        this.id = id;
         this.topic = topic;
         this.price = price;
         this.content = content;
@@ -33,6 +33,7 @@ public class Publication {
     public void setId(String id) {
         this.id = id;
     }
+
 
     public Topic getTopic() {
         return topic;

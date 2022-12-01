@@ -2,6 +2,7 @@ package com.project.service;
 
 import com.project.dao.UserDao;
 import com.project.entity.User;
+import com.project.entity.enums.Role;
 import com.project.util.DbHelper;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class UserService {
 
     public void addUser(User user) {
         user.setId(UUID.randomUUID().toString());
+        user.setRole(Role.USER);
         userDao.addUser(user);
     }
 

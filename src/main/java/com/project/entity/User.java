@@ -15,23 +15,12 @@ public class User {
     public User() {
     }
 
-    public User(String id, String firstname, String lastname, String email, String password, Gender gender, Role role) {
-        this.id = id;
+    public User(String firstname, String lastname, String email, String password, Gender gender) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.gender = gender;
-        this.role = role;
-    }
-
-    public User(String firstname, String lastname, String email, String password, Gender gender, Role role) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.gender = gender;
-        this.role = role;
     }
 
     public String getId() {

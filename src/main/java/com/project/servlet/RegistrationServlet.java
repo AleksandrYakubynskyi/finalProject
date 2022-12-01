@@ -4,7 +4,6 @@ import com.project.constant.Attributes;
 import com.project.dao.impl.DefaultUserDao;
 import com.project.entity.User;
 import com.project.entity.enums.Gender;
-import com.project.entity.enums.Role;
 import com.project.service.UserService;
 import com.project.util.DbHelper;
 
@@ -19,22 +18,19 @@ import java.util.Optional;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
-    private final UserService userService;
+    private UserService userService;
     private final DbHelper dbHelper = new DbHelper();
     private final DefaultUserDao defaultUserDao = new DefaultUserDao(dbHelper);
 
-    public RegistrationServlet(UserService userService) {
-        this.userService = userService;
-    }
-
     @Override
     public void init() throws ServletException {
-        new UserService(dbHelper, defaultUserDao);
+        userService = new UserService(dbHelper, defaultUserDao);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        getServletContext().getRequestDispatcher("/registration.jsp").forward(req, resp);
+
     }
 
     @Override
@@ -45,17 +41,18 @@ public class RegistrationServlet extends HttpServlet {
         String email = req.getParameter(Attributes.EMAIL);
         String password = req.getParameter(Attributes.PASSWORD);
         String gender = req.getParameter(Attributes.GENDER);
-        String role = req.getParameter(Attributes.ROLE);
 
         Optional<User> user = userService.getUserByEmail(email);
 
         if (user.isPresent()) {
-            resp.sendRedirect("/registration");
+            String message = "User with this email address already exists!";
+            req.setAttribute("errorMessage", message);
+            req.getRequestDispatcher("/registration.jsp").forward(req, resp);
+            return;
         }
-        validateParameters(resp, firstname, lastname, email, password, gender, role);
-        userService.addUser(
-                new User(firstname, lastname, email, password, Gender.valueOf(gender), Role.valueOf(role)));
-
+        validateParameters(resp, firstname, lastname, email, password, gender);
+        userService.addUser(new User(firstname, lastname, email, password, Gender.valueOf(gender)));
+        resp.sendRedirect("/");
     }
 
     private void validateParameters(HttpServletResponse resp, String... strings) throws IOException {
